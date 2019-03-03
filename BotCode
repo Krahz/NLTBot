@@ -1,1 +1,21 @@
+import praw
+from time import sleep
 
+# API credentials, needs to have mod priviledges 
+reddit = praw.Reddit(client_id='',
+                     client_secret='',
+                     username='',
+                     password='',
+                     user_agent='')
+
+def postLocked():
+    for submission in reddit.subreddit('all').new():
+        if submission.locked:
+            link = "https://reddit.com"+submission.permalink
+            print(link)
+            reddit.subreddit('test').submit(str(submission.title), url=link)
+
+while(1):
+    postLocked()
+    print("Sleeping...")
+    sleep(60)
